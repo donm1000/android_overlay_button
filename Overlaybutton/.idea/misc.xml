@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_thumb_up_24.xml" value="0.172" />
+        <entry key="app/src/main/res/drawable/ic_info_black_24dp.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_sync_black_24dp.xml" value="0.1195" />
+        <entry key="lib/src/main/res/drawable/ic_toys_white_24dp.xml" value="0.1195" />
+        <entry key="lib/src/main/res/drawable/overlay_side_bar_left.xml" value="0.1195" />
+        <entry key="lib/src/main/res/drawable/overlay_side_bar_right.xml" value="0.1195" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
@@ -39,7 +52,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

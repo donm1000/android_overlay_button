@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), OverlaySettingsActivity.class);
-                intent.putExtra(OverlaySettingsActivity.EXTRA_ICON_RES_ID, R.drawable.overlay_icon);
+                intent.putExtra(OverlaySettingsActivity.EXTRA_ICON_RES_ID, R.drawable.ic_baseline_thumb_up_24);
                 v.getContext().startActivity(intent);
             }
         });
