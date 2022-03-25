@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="spinninghead.overlaybutton.OverlaySettingsActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="Overlay Button"
+        android:textSize="24sp"
+        tools:text="Overlay Button" />
+
+    <Switch
+        android:id="@+id/switchOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:checked="false"
+        android:splitTrack="false"
+        android:text="Show a floating button over other apps to allow easy access back to Car Home"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        tools:checked="false" />
+
+    <TextView
+        android:id="@+id/txtExitMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="When you exit Car Home the overlay button will no longer show."
+        tools:text="When you exit Car Home the overlay button will no longer show." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="6dp">
+    <TextView
+        android:id="@+id/txtSizeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Button Size:"
+        android:textStyle="bold"
+        android:layout_marginLeft="2dp"
+        />
+
+    <SeekBar
+        android:id="@+id/seekSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:max="100"
+        />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnChoosePosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="Reset Button Position" />
+
+    <TextView
+        android:id="@+id/txtRepositionMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="Reposition the button by tapping and holding. When highlighted, you can drag it anywhere on the screen.\n\nWhen pushed into the side of the screen, the overlay will become a slide button that uses very little space." />
+</LinearLayout>
