@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), OverlaySettingsActivity.class);
-                intent.putExtra(OverlaySettingsActivity.EXTRA_ICON_RES_ID, R.drawable.ic_baseline_thumb_up_24);
+                intent.putExtra(OverlaySettingsActivity.EXTRA_ICON_RES_ID, R.drawable.overlay_demo_button);
                 v.getContext().startActivity(intent);
             }
         });
@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
     protected OverlayButtonManager getOverlayManager() {
 
         if (overlayManager==null) {
-            overlayManager = new OverlayButtonManager(null, R.drawable.overlay_icon, 0);
+            overlayManager = new OverlayButtonManager(null, R.drawable.overlay_demo_button, 0);
         }
 
         return overlayManager;

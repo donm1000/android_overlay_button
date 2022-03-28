@@ -37,7 +37,7 @@ public class OverlayService extends Service {
             Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
             PendingIntent appIntent = PendingIntent.getActivity(getApplicationContext(), 0, resultIntent, 0);
 
-            overlayButtonManager=new OverlayButtonManager(appIntent, R.drawable.overlay_icon, 0);
+            overlayButtonManager=new OverlayButtonManager(appIntent, R.drawable.overlay_demo_button, 0);
         }
 
         return overlayButtonManager;

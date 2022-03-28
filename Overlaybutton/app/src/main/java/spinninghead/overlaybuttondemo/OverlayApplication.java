@@ -16,7 +16,7 @@ public class OverlayApplication extends Application {
     protected OverlayButtonManager getOverlayManager() {
 
         if (overlayManager==null) {
-            overlayManager = new OverlayButtonManager(null, R.drawable.overlay_icon, 0);
+            overlayManager = new OverlayButtonManager(null, R.drawable.overlay_demo_button, 0);
         }
 
         return overlayManager;
