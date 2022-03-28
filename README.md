@@ -1,1 +1,1 @@
-# android_overlay_button
+# android_overlay_button is an Android library that supports showing an overlay action button on top of other apps or even the Android home screen. It includes an integrated settings dialog so end users can adjust the size and other options for the overlay.
