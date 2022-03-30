@@ -1,21 +1,17 @@
 package spinninghead.overlaybutton;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,13 +19,11 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.Gravity;
-import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
@@ -37,11 +31,8 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
-import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import static android.content.Context.WINDOW_SERVICE;
 
@@ -83,7 +74,12 @@ public class OverlayButtonManager {
 
     WindowManager wm;
 
-
+    /**
+     * Constructor for OverlayButtonManager
+     * @param launchIntent the intent to be performed when overlay button is tapped
+     * @param iconResourceId resource ID for the image to be used as button
+     * @param sliderButtonColor resource ID for the color of the side button slider
+     */
     public OverlayButtonManager(PendingIntent launchIntent, int iconResourceId, int sliderButtonColor) {
         this.launchIntent = launchIntent;
 
@@ -106,19 +102,28 @@ public class OverlayButtonManager {
         }
     }
 
-    public static float convertDpToPixel(float dp, Context context){
+    /**
+     * Convenience method to convert DB to pixels
+     * @param dp dp to be converted
+     * @param context context used to retrieve Resources
+     * @return pixels in the form of a float
+     */
+    protected static float convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return px;
     }
 
+    /**
+     * Retrieves the button coordinates for the appropriate screen orientation
+     * @param context context used for the operation
+     */
     @SuppressLint("WrongConstant")
     private void getXYLocations(Context context) {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         overlaySizeRatio = sharedPref.getFloat(OverlaySettingsActivity.Overlay_Size_Ratio, 1f);
-
 
         orientation = getWM(context).getDefaultDisplay().getRotation();
 
@@ -128,21 +133,10 @@ public class OverlayButtonManager {
         screenWidth = size.x;
         screenHeight = size.y;
 
-
-
-
         if (screenWidth<screenHeight) {
-            //largeIconSize = screenWidth/5;
             smallIconSize = (screenWidth/15);
-            //gutterSize = screenWidth/35;
-            //slideCompletionValue = screenWidth/3;
-            //slideButtonWidth = screenWidth/3;
         } else {
-            //largeIconSize = screenHeight/5;
             smallIconSize =  (screenHeight/15);
-            //gutterSize = screenHeight/35;
-            //slideCompletionValue = screenHeight/3;
-            //slideButtonWidth = screenHeight/3;
         }
 
         largeIconSize = (int) (convertDpToPixel(78, context) * overlaySizeRatio);
@@ -151,26 +145,28 @@ public class OverlayButtonManager {
         slideCompletionValue = (int) convertDpToPixel(140, context);
         gutterHeight = (int) convertDpToPixel(200, context);
 
-
         leftSideValue = screenWidth/-2;
         rightSideValue = screenWidth/2;
 
-
         overlayX = sharedPref.getInt("overlayX" + orientation, 0 - (screenWidth / 2) + (largeIconSize/2));
         overlayY = sharedPref.getInt("overlayY" + orientation, 0 + (screenHeight / 2) - largeIconSize);
-
     }
 
-    public void updateButtonSize(Context context) {
-
+    /**
+     * Recreate the overlay button to show a size change
+     * @param context
+     */
+    protected void updateButtonSize(Context context) {
         getXYLocations(context);
         removeOverlays(context);
         showNewButtonOverlay(context, 0);
-
-
     }
 
-    public void resetButtonPosition(Context context) {
+    /**
+     * Recreates the overlay button to update it's location on the screen.
+     * @param context
+     */
+    protected void resetButtonPosition(Context context) {
         getXYLocations(context);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         SharedPreferences.Editor edit = sharedPref.edit();
@@ -180,10 +176,12 @@ public class OverlayButtonManager {
 
         removeOverlays(context);
         showNewButtonOverlay(context, 0);
-
-
     }
 
+    /**
+     * Saves the X and Y coordinates of the overlay button
+     * @param context
+     */
     private void saveXYLocations(Context context) {
 
         int orientation = getWM(context).getDefaultDisplay().getRotation();
@@ -193,23 +191,26 @@ public class OverlayButtonManager {
         edit.putInt("overlayX" + orientation, overlayX);
         edit.putInt("overlayY" + orientation, overlayY);
         edit.commit();
-
     }
 
+    /**
+     * Convenience method to retrieve WindowManager singleton
+     * @param context
+     * @return
+     */
     private WindowManager getWM(Context context) {
         if (wm == null) {
             wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
-
         }
-
         return wm;
     }
 
+    /**
+     * Performs animation to close overlay button slider
+     */
     protected void animateSliderClose() {
 
-
         if (sliderView!=null) {
-
             final WindowManager.LayoutParams prm = ((WindowManager.LayoutParams) sliderView.getLayoutParams());
             final WindowManager wm = getWM(sliderView.getContext());
             final int startX = prm.x;
@@ -236,16 +237,13 @@ public class OverlayButtonManager {
                     wm.updateViewLayout(sliderView, prm);
                 }
             });
-
             animation.start();
-
-
-
         }
-
-
     }
 
+    /**
+     * Performs slider bounds animation
+     */
     protected void animateSliderBounce() {
 
         if (sliderView!=null) {
@@ -286,9 +284,11 @@ public class OverlayButtonManager {
         }
     }
 
+    /**
+     * Performs overlay button spin animation
+     * @param animationDelay delay in ms before animation starts
+     */
     protected void animateIconSpin(long animationDelay) {
-
-        System.out.println("Overlay: animateIconSpin");
 
         if (iconView!=null) {
 
@@ -318,13 +318,6 @@ public class OverlayButtonManager {
                     } else {
                         updatedAnimation.cancel();
                     }
-
-                    //System.out.println("Overlay: with invalidate animateIconSpin: " + iconView.getRotation());
-
-                    //iconView.invalidate();
-
-                    //wm.updateViewLayout(iconView, prm);
-
                 }
             });
 
@@ -332,6 +325,9 @@ public class OverlayButtonManager {
         }
     }
 
+    /**
+     * Overlay button fade in animation
+     */
     protected void animateIconFadeIn() {
 
         System.out.println("Overlay: animateIconFadeIn");
@@ -343,19 +339,9 @@ public class OverlayButtonManager {
             final int startWidth = prm.width;
             final int startHeight = prm.height;
 
-            System.out.println("Overlay: prm.flags = " + prm.flags);
-
-
-
             if (prm.layoutAnimationParameters!=null) {
                 System.out.println("Overlay: prm.flags = " + prm.layoutAnimationParameters.count);
             }
-
-            System.out.println("Overlay: prm.windowAnimations = " + prm.windowAnimations);
-
-            System.out.println("Overlay: prm = " + prm.toString());
-
-
 
             final float startRotation = iconView.getRotation();
 
@@ -369,20 +355,18 @@ public class OverlayButtonManager {
                     // same type as the animation. In this case, you can use the
                     // float value in the translationX property.
                     float animatedValue = (float)updatedAnimation.getAnimatedValue();
-
                     iconView.setAlpha(animatedValue);
-
-
-
                     wm.updateViewLayout(iconView, prm);
-
                 }
             });
-
             animation.start();
         }
     }
 
+    /**
+     * Performs the intent tied to the overlay button
+     * @param context
+     */
     private void openApp(Context context) {
 
         if (SystemClock.uptimeMillis() > (ButtonPressTime + 1000)) {
@@ -392,8 +376,6 @@ public class OverlayButtonManager {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
             vibrator.vibrate(50l);
-
-
 
             if (launchIntent != null) {
                 removeViews(context);
@@ -413,6 +395,10 @@ public class OverlayButtonManager {
 
     }
 
+    /**
+     * Loads and sets up the overlay button
+     * @param context
+     */
     private void loadViews(Context context) {
 
         removeViews(context);
@@ -445,12 +431,8 @@ public class OverlayButtonManager {
         };
 
         LongClickListener longClickListener = new LongClickListener();
-        //dragListener = new OverlayButtonManager.DragEventListener();
-
 
         if (onLeftSide) {
-
-
             sliderView = new ImageView(context);
             sliderView.setClickable(true);
             sliderView.setImageResource(iconResourceId);
@@ -481,6 +463,10 @@ public class OverlayButtonManager {
 
     }
 
+    /**
+     * Removes views associated with the overlay
+     * @param context
+     */
     synchronized private void removeViews(Context context) {
 
         if (iconView!=null) {
@@ -506,34 +492,34 @@ public class OverlayButtonManager {
 
     }
 
+    /**
+     * Use this method to remove overlay buttons
+     * @param context
+     */
     public void removeOverlays(Context context) {
         removeViews(context);
-
     }
 
-
-    public void showNewButtonOverlay(Context context, long animationDelay) {
+    /**
+     * Shows the overlay button with applicable animation
+     * @param context
+     * @param animationDelay
+     */
+    protected void showNewButtonOverlay(Context context, long animationDelay) {
 
         if (SystemClock.uptimeMillis() > (ButtonPressTime + 500)) {
-
-                //gestureDetector = new GestureDetectorCompat(context, new GestureListener());
-
 
                 getXYLocations(context);
 
                 loadViews(context);
 
-                //viewGroup.setOnLongClickListener(new View.OnLongClickListener() {
-
                 WindowManager.LayoutParams params;
-
 
                 int overlayType = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     overlayType = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
                 }
-
 
                 if (onLeftSide || onRightSide) {
                     params = new WindowManager.LayoutParams(smallIconSize, smallIconSize, overlayX, overlayY, overlayType, 0, PixelFormat.TRANSLUCENT);
@@ -545,7 +531,6 @@ public class OverlayButtonManager {
 
                 if (!onLeftSide && !onRightSide) {
                     wm.addView(iconView, params);
-
 
                     animateIconSpin(animationDelay);
 
@@ -565,11 +550,13 @@ public class OverlayButtonManager {
 
                 }
 
-                System.out.println("overlay: oView: x: " + overlayX + " y: " + overlayY);
             }
-
     }
 
+    /**
+     * Creates view of button to be shown as user is repositioning the button
+     * @param context
+     */
     private void createDragView(Context context) {
 
         int overlayType = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
@@ -598,7 +585,9 @@ public class OverlayButtonManager {
         dragView=null;
     }
 
-
+    /**
+     * LongClick listener for overlay button used for repositioning button
+     */
     private class LongClickListener implements View.OnLongClickListener {
 
         @Override
@@ -612,17 +601,12 @@ public class OverlayButtonManager {
                 createDragView(v.getContext());
             }
 
-
             v.setOnTouchListener(new View.OnTouchListener() {
-
                 boolean touchconsumedbyMove = false;
                 int recButtonLastX;
                 int recButtonLastY;
                 int recButtonFirstX;
                 int recButtonFirstY;
-
-
-
 
                 @TargetApi(Build.VERSION_CODES.FROYO)
                 @Override
@@ -630,7 +614,6 @@ public class OverlayButtonManager {
                     WindowManager.LayoutParams prm = ((WindowManager.LayoutParams) dragView.getLayoutParams());
                     int totalDeltaX = recButtonLastX - recButtonFirstX;
                     int totalDeltaY = recButtonLastY - recButtonFirstY;
-
 
                     switch (event.getActionMasked()) {
                         case MotionEvent.ACTION_DOWN:
@@ -680,11 +663,6 @@ public class OverlayButtonManager {
             });
             return false;
         }
-
-
-
-
-
     };
 
     private static Point getTouchPositionFromDragEvent(View item, DragEvent event) {
@@ -710,6 +688,9 @@ public class OverlayButtonManager {
 
     }
 
+    /**
+     * Touch Listener used to handle the overlay button when it is used on the sides (gutter) of the screen.
+     */
     class GutterOnTouchListener implements View.OnTouchListener {
 
         boolean touchconsumedbyMove = false;

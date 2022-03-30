@@ -6,20 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
+/**
+ * This class is used to show a settings screen for the overlay button
+ */
 public class OverlaySettingsActivity extends Activity {
 
     static String Key_Overlay = "overlaybutton";
@@ -29,10 +29,7 @@ public class OverlaySettingsActivity extends Activity {
     OverlayButtonManager overlayManager = null;
 
     int iconId = 0;
-
     float ratio = 1;
-
-
 
     static public boolean IsOverlayEnabled(Context context) {
 
@@ -46,7 +43,6 @@ public class OverlaySettingsActivity extends Activity {
         }
 
         return overlay;
-
     }
 
     public static boolean CheckDrawOverlayPermission(Context context) {
@@ -54,7 +50,6 @@ public class OverlaySettingsActivity extends Activity {
             return true;
         }
         if (!Settings.canDrawOverlays(context)) {
-
             return false;
         } else {
             return true;
