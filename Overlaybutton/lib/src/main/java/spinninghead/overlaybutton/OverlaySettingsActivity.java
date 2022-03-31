@@ -31,6 +31,11 @@ public class OverlaySettingsActivity extends Activity {
     int iconId = 0;
     float ratio = 1;
 
+    /**
+     * Retrieves overlay button enabled from shared preferences
+     * @param context
+     * @return
+     */
     static public boolean IsOverlayEnabled(Context context) {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
@@ -45,6 +50,11 @@ public class OverlaySettingsActivity extends Activity {
         return overlay;
     }
 
+    /**
+     * Convenience method to determine if app has draw overlay permission
+     * @param context
+     * @return
+     */
     public static boolean CheckDrawOverlayPermission(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -149,9 +159,6 @@ public class OverlaySettingsActivity extends Activity {
         seekSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-
-
             }
 
             @Override
