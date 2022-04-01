@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import spinninghead.overlaybutton.OverlayButtonManager;
 
+/**
+ * This is a sample/demo service for the OverlayButton library
+ */
 public class OverlayService extends Service {
 
     static String ACTION = "action";
@@ -63,14 +66,12 @@ public class OverlayService extends Service {
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 
-
-
         // Tell the user we stopped.
         Toast.makeText(getApplicationContext(), "Overlay Service Stopped", Toast.LENGTH_SHORT).show();
     }
 
     protected void showOverlay() {
-        System.out.println("Overlay: showOverlay");
+
         getButtonManager().showNewButtonOverlay(getApplicationContext(), 200l);
     }
 

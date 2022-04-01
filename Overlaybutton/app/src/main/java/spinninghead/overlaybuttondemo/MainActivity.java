@@ -13,8 +13,12 @@ import android.widget.Button;
 import spinninghead.overlaybutton.OverlayButtonManager;
 import spinninghead.overlaybutton.OverlaySettingsActivity;
 
+/**
+ * This is a sample/demo activity to demonstrate the OverlayButton library
+ */
 public class MainActivity extends Activity {
 
+    //Instance of OverlayButtonManager is required to manage overlay
     OverlayButtonManager overlayManager = null;
 
     @Override
@@ -83,26 +87,16 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(OverlayService.ACTION);
         intent.putExtra(OverlayService.SERVICE_COMMAND, OverlayService.COMMAND_HIDE_OVERLAY);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-
-
-
-        //checkDrawOverlayPermission();
     }
 
     @Override
     protected void onPause() {
-        //getOverlayManager().showNewButtonOverlay(getApplicationContext());
-
-
 
         Intent intent = new Intent(OverlayService.ACTION);
         intent.putExtra(OverlayService.SERVICE_COMMAND, OverlayService.COMMAND_SHOW_OVERLAY);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
         super.onPause();
-
-        //((OverlayApplication) getApplication()).getOverlayManager().showNewButtonOverlay(getApplicationContext());
-
     }
 
     protected OverlayButtonManager getOverlayManager() {

@@ -100,17 +100,17 @@ public class OverlaySettingsActivity extends Activity {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(buttonView.getContext());
 
-                        builder.setPositiveButton("Ok, take me there", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(R.string.ok_take_me, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 showSystemOverlaySettings();
                             }
                         });
-                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
                             }
                         });
-                        builder.setMessage("You will need to enable this button to show over other apps in your phone settings.");
+                        builder.setMessage(R.string.need_to_enable_for_overlay);
 
                         AlertDialog dialog = builder.create();
 
