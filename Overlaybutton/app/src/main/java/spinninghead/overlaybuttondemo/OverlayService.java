@@ -34,9 +34,15 @@ public class OverlayService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    /**
+     * Returns a singleton instance of OverlayButtonManager that will open the MainActivity when the overlay button is tapped
+     * @return
+     */
     protected OverlayButtonManager getButtonManager() {
 
         if (overlayButtonManager==null) {
+
+            //Intent to be performed when overlay button is tapped
             Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
             PendingIntent appIntent = PendingIntent.getActivity(getApplicationContext(), 0, resultIntent, 0);
 
