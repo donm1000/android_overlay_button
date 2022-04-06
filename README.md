@@ -16,3 +16,6 @@ The overlay can be displayed over any other apps
 
 ![overlay_screenshot](https://user-images.githubusercontent.com/71778976/161620518-39b83674-e8ff-4931-aa32-431a2dda84fe.png)
 
+Sequence Diagram for Showing Overlay
+
+<img width="1388" alt="Screen Shot 2022-04-06 at 4 02 42 PM" src="https://user-images.githubusercontent.com/71778976/162061210-8b16136c-0939-4382-86cc-07430fc7ef90.png">
