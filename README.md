@@ -10,8 +10,25 @@ Overlay Button is an Android library that allows an app to show an action button
 
 ![Overlay Demo](https://github.com/donm1000/android_overlay_button/blob/main/readme_images/overlay_use.gif) ![Overlay Settings](https://github.com/donm1000/android_overlay_button/blob/main/readme_images/overlay_settings.gif)
 
+## How To Use The Library
+###  1) Add the library to your application build.gradle
+```
+implementation 'spinninghead:overlaybutton:0.1'
+```
 
+###  2) Add an instance variable in your activity for OverlayButtonManager. Implementing a singleton here is also a nice option.
+```
+OverlayButtonManager overlayManager = null;
+```
+```
+    protected OverlayButtonManager getOverlayManager() {
+        if (overlayManager==null) {
+            overlayManager = new OverlayButtonManager(null, R.drawable.overlay_demo_button, 0);
+        }
+        return overlayManager;
+    }
+```    
 
-Sequence Diagram for Showing Overlay
+## Sequence Diagram for Showing Overlay
 
 <img width="1388" alt="Screen Shot 2022-04-06 at 4 02 42 PM" src="https://user-images.githubusercontent.com/71778976/162061210-8b16136c-0939-4382-86cc-07430fc7ef90.png">
