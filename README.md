@@ -1,6 +1,13 @@
-This is an Android library that supports showing an overlay action button on top of other apps or even the Android home screen. It includes an integrated settings dialog so end users can adjust the size and other options for the overlay. 
+# Overlay Button
+Overlay Button is an Android library that allows an app to show an action button type overlay over other apps or the home screen. The button would normally be used to navigate back to an app that using a service for background processing, but it is capable of performing any intent. 
 
-A service is required to keep the overlay alive while it is shown over other apps. A demo of this service is also provided along with code to prompt for user permissions.
+- Show overlay button over other apps or the homescreen
+- Integrated settings UI for the overlay
+- Overlay size and position are user adjustable
+- Integrated permissions request and management
+- Demo app included
+
+
 
 
 Use a floating overlay button to return to your app:
