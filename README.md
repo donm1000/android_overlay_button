@@ -8,20 +8,9 @@ Overlay Button is an Android library that allows an app to show an action button
 - Demo app included
 
 
+![Overlay Demo](https://github.com/donm1000/android_overlay_button/blob/main/readme_images/overlay_use.gif) ![Overlay Settings](https://github.com/donm1000/android_overlay_button/blob/main/readme_images/overlay_settings.gif)
 
 
-Use a floating overlay button to return to your app:
-
-https://user-images.githubusercontent.com/71778976/161619593-2a83689b-69bd-4607-a2a6-771bdec26afa.mp4
-
-
-Detect and enable System Overlay Permission:
-
-https://user-images.githubusercontent.com/71778976/161619795-df8e67e3-4079-4189-bb44-523c2a9cc231.mp4
-
-The overlay can be displayed over any other apps
-
-![overlay_screenshot](https://user-images.githubusercontent.com/71778976/161620518-39b83674-e8ff-4931-aa32-431a2dda84fe.png)
 
 Sequence Diagram for Showing Overlay
 
