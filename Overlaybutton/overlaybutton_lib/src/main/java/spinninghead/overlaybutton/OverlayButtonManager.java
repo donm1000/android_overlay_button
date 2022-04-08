@@ -505,7 +505,7 @@ public class OverlayButtonManager {
      * @param context
      * @param animationDelay
      */
-    protected void showNewButtonOverlay(Context context, long animationDelay) {
+    public void showNewButtonOverlay(Context context, long animationDelay) {
 
         if (SystemClock.uptimeMillis() > (ButtonPressTime + 500)) {
 

@@ -41,14 +41,11 @@ public class OverlayService extends Service {
     protected OverlayButtonManager getButtonManager() {
 
         if (overlayButtonManager==null) {
-
             //Intent to be performed when overlay button is tapped
             Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
             PendingIntent appIntent = PendingIntent.getActivity(getApplicationContext(), 0, resultIntent, 0);
-
             overlayButtonManager=new OverlayButtonManager(appIntent, R.drawable.overlay_demo_button, 0);
         }
-
         return overlayButtonManager;
     }
 
@@ -77,7 +74,6 @@ public class OverlayService extends Service {
     }
 
     protected void showOverlay() {
-
         getButtonManager().showNewButtonOverlay(getApplicationContext(), 200l);
     }
 

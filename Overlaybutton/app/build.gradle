@@ -29,5 +29,6 @@ dependencies {
 
 //    compile 'spinninghead:overlaybutton:0.1'
     implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'spinninghead:overlaybutton:0.1'
+    implementation project(path: ':overlaybutton_lib')
+
 }
